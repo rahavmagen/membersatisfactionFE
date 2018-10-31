@@ -1,0 +1,72 @@
+<div *ngIf="category">
+  <!-- <h3 class="first">Questions</h3> -->
+  <br>
+  <button type="button" pButton icon="pi pi-check" (click)="addNewQuestionPopUp()" label="Add new Question"></button>
+  <button type="button" pButton icon="pi pi-check" (click)="confirmDeleteQuestion()" label="Remove Question"></button>
+  <p></p>
+
+  <p-confirmDialog></p-confirmDialog>
+
+
+  <p-dialog header="Information Message" [(visible)]="displayNoQuestionMsg" [modal]="true" [responsive]="true" [width]="350"
+    [minWidth]="200" [minY]="70" [baseZIndex]="10000">
+    <span>Please choose a question to delete</span>
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="displayNoQuestionMsg=false" label="OK"></button>
+
+    </p-footer>
+  </p-dialog>
+
+  <p-table [value]="category.questions" selectionMode="single" [(selection)]="selectedQuestion">
+    <ng-template pTemplate="header">
+      <tr>
+        <!-- <th>Question ID</th> -->
+        <th>Question</th>
+        <th>Effective date</th>
+        <!-- <th>Expiration date</th> -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-question>
+
+      <tr [pSelectableRow]="question">
+        <!-- <td>{{question.questionId}}</td> -->
+        <td>{{question.questionText}}</td>
+        <td>{{question.effectiveDate | date : 'dd/MM/yyyy'}}</td>
+        <!-- <td>{{question.expirationDate}}</td> -->
+
+      </tr>
+
+    </ng-template>
+
+    <!-- <ng-template pTemplate="summary">
+            <div style="text-align: left">
+                Selected Question: {{selectedQuestion ? selectedQuestion.questionId + ' - ' + selectedQuestion.questionText: 'none'}}
+            </div>
+        </ng-template> -->
+
+  </p-table>
+</div>
+
+<p-dialog header="New Question" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+  <div class="ui-g ui-fluid" *ngIf="newQuestion">
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="Question">Question</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="questionText" [(ngModel)]="newQuestion.questionText" maxlength="250" />
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-close" (click)="saveNewQuestion()" label="Save"></button>
+      <button type="button" pButton icon="fa fa-close" (click)="cancelQuestionPopUp()" label="Cancel"></button>
+
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+
+<app-possible-answers [question]="selectedQuestion"></app-possible-answers>

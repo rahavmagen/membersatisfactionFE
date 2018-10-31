@@ -1,0 +1,15 @@
+ul{
+  list-style-type:none;
+  }
+
+  p-radioButton{
+    margin: 0 15px 0 10px;
+    font-family: "Open Sans";
+  }
+
+  p-dropdown {
+    font-family: "Open Sans";
+  }
+ * {
+  font-family: "Open Sans";
+ }

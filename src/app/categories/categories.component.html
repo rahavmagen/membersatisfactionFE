@@ -1,0 +1,91 @@
+
+<div *ngIf = "!categoriesList">
+    <div class="ui-g-12">
+        <div class="ui-g-4">Loading please wait...</div>
+        <div class="ui-g-4">
+    <p-progressSpinner> </p-progressSpinner>
+  </div>
+  </div>
+</div>
+
+<app-logo *ngIf = "categoriesList"></app-logo>
+
+
+
+<div *ngIf = "categoriesList">
+
+<button type="button" pButton icon="pi pi-check" (click)="addNewCategory()" label="Add new category" ></button>
+<button type="button" pButton icon="pi pi-check" (click)="confirmDeleteCategory()" label="Remove category"></button>
+</div>
+<p></p>
+
+<p-confirmDialog></p-confirmDialog>
+
+
+<p-dialog header="Information Message" [(visible)]="displayNoCategoryMsg" [modal]="true" [responsive]="true" [width]="350"
+  [minWidth]="200" [minY]="70" [baseZIndex]="10000">
+  <span>Please choose a category to delete</span>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="displayNoCategoryMsg=false" label="OK"></button>
+
+  </p-footer>
+</p-dialog>
+
+
+<p-messages [value]="msgs"></p-messages>
+
+<p-table [value]="categoriesList" selectionMode="single" [(selection)]="selectedCategory"  *ngIf = "categoriesList">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Category Name</th>
+      <th>Date Created</th>
+      <th>Number of questions</th>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-category>
+
+    <tr [pSelectableRow]="category">
+      <!-- <td>{{category.categoryId}}</td> -->
+      <td>{{category.categoryName}}</td>
+      <td>{{category.effectiveDate | date: 'dd/MM/yyyy' }}</td>
+      <td *ngIf="category.questions.length else elseBlock ">{{category.questions.length}}</td>
+      <ng-template #elseBlock>
+        <td>0</td>
+      </ng-template>
+      <!-- <td><button type="button" pButton icon="pi pi-check" (click)="displayNoCategoryMsg=false" label="Remove"></button></td> -->
+
+    </tr>
+
+  </ng-template>
+
+
+
+</p-table>
+
+<p-dialog header="New Category" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+  <div class="ui-g ui-fluid" *ngIf="newCategory">
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="categoryName">Name</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="categoryName" [(ngModel)]="newCategory.categoryName" maxlength="20" />
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix" >
+      <button type="button" pButton icon="fa fa-close" (click)="saveNewCategory()" label="Save"></button>
+      <button type="button" pButton icon="fa fa-close" (click)="cancelCategoryPopUp()" label="Cancel"></button>
+
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+<app-questions [category]="selectedCategory"></app-questions>
+
+<br>
+<br>
+

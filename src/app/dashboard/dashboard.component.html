@@ -1,0 +1,101 @@
+
+
+<p-growl [value]="msgs"> </p-growl>
+
+<div class="p-grid nested-grid">
+  <div class="p-col-2">
+    <p-panelMenu [model]="items" [style]="{'width':'300px'}"></p-panelMenu>
+    <p-checkbox name="groupname" value=0 [(ngModel)]="showExpiredInd" label="show expired" (onChange)="showExpired()" binary="true"></p-checkbox>
+  </div>
+
+
+  <div class="p-col-8">
+    <div class="p-grid">
+      <div class="p-col-3">
+        <h3>From date</h3>
+      </div>
+      <div class="p-col-3">
+          <h3>To date</h3>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-3">
+        <p-calendar [(ngModel)]="fromDate" dateFormat="dd/mm/yy" showButtonBar="true" placeholder></p-calendar>
+      </div>
+      <div class="p-col-3">
+
+        <p-calendar [(ngModel)]="toDate" dateFormat="dd/mm/yy" showButtonBar="true"></p-calendar>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-1">
+        <button pButton type="button" label="GET" (click)="getQuickSurvey()"></button>
+      </div>
+    </div>
+
+
+    <div class="p-grid">
+      <div *ngIf="displaySpinner">
+        <p-progressSpinner> </p-progressSpinner>
+      </div>
+      <div class="p-col">
+        <div *ngIf="displayResults">
+            <p-table [value]="quickSurvey" [rows]="10" [paginator]="true" [responsive]="true">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>feedback #</th>
+                  <th>Creation date</th>
+                  <th>Phone number</th>
+                  <th>UMN</th>
+                  <th>First name</th>
+                  <th>Middle name</th>
+                  <th>Last name</th>
+                  <th>Grade</th>
+                  <th>Comment</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-quickSurvey>
+                <tr>
+                  <td>{{quickSurvey.surveyId}}</td>
+                  <td>{{quickSurvey.creationDate | date}} </td>
+                  <td>{{quickSurvey.phoneNumber}}</td>
+                  <td>{{quickSurvey.umn}}</td>
+                  <td>{{quickSurvey.firstName}}</td>
+                  <td>{{quickSurvey.middleName}}</td>
+                  <td>{{quickSurvey.lastName}}</td>
+                  <td>{{quickSurvey.shortFeedbackGrade}}</td>
+                  <td>{{quickSurvey.shortFeedbackComment}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<p-toast position="bottom-left" key="myKey1"></p-toast>
+
+<div class="p-grid nested-grid">
+    <div class="p-col-8">
+        <div class="p-grid">
+            <div class="p-col-6">
+                <div class="box">6</div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">6</div>
+            </div>
+            <div class="p-col-12">
+                <div class="box">12</div>
+            </div>
+        </div>
+    </div>
+    <div class="p-col-4">
+        <div class="box box-stretched">4</div>
+    </div>
+</div>
+
+

@@ -1,0 +1,68 @@
+<div *ngIf="datailedFeedbackDisplay">
+  <div class="ui-g">
+    <div class="ui-g-6">
+      <p-tabView  (onChange) = "getTabNumber($event)" >
+        <p-tabPanel [header]="category.categoryName" *ngFor="let category of categoriesList; let catIndex = index" [selected]="catIndex == 0">
+          <br>
+          <ul>
+            <li *ngFor="let question of category.questions; let qIndex = index " >
+              <table>
+                <tr>
+                  <td>
+                    <input type="text" pInputText [placeholder]="question.questionText">
+                  </td>
+                  <td>
+                    <p-dropdown [options]="question.possibleAnswers" [(ngModel)]="tabsData[catIndex].memberAnswers[qIndex].possibleAnswer"
+                    placeholder="Please select" (onChange)="buildTabsData(catIndex ,tabsData[catIndex].memberAnswers[qIndex].possibleAnswer.answerValue,qIndex  )"
+                      optionLabel="answerValue" [showClear]="true" [ngModelOptions]="{standalone: true}">
+                    </p-dropdown>
+                  </td>
+                </tr>
+              </table>
+            </li>
+          </ul>
+          <div class="ui-grid-row">
+            <h3>Service experience for {{category.categoryName}}</h3>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-g-6">
+              <div class="ui-g-12">
+                <p-radioButton  value=1 label="Very poor"
+                 [(ngModel)]=tabsData[catIndex].grade (ngModelChange)="setTabTouched()"></p-radioButton>
+              </div>
+              <div class="ui-g-12">
+                <p-radioButton value=2 label="Poor"
+                [(ngModel)]=tabsData[catIndex].grade (ngModelChange)="setTabTouched()"></p-radioButton>
+              </div>
+              <div class="ui-g-12">
+                <p-radioButton  value=3 label="Good"
+                [(ngModel)]=tabsData[catIndex].grade (ngModelChange)="setTabTouched()" ></p-radioButton>
+              </div>
+              <div class="ui-g-12">
+                <p-radioButton  value=4 label="Very good"
+                [(ngModel)]=tabsData[catIndex].grade (ngModelChange)="setTabTouched()"></p-radioButton>
+              </div>
+              <div class="ui-g-12">
+                <p-radioButton  value=5 label="Excellent"
+                [(ngModel)]=tabsData[catIndex].grade  (ngModelChange)="setTabTouched()"></p-radioButton>
+              </div>
+            </div>
+            <div class="ui-g-3">
+              <h3>Comments</h3>
+              <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize" name="comments" (blur) = "setTabTouched()"
+                [(ngModel)]="tabsData[catIndex].comment" ></textarea>
+            </div>
+          </div>
+
+        </p-tabPanel>
+      </p-tabView>
+
+      <button type="button" pButton icon="pi pi-check" label="Continue" (click)="continueToSummery()"></button>
+      <p-messages [(value)]="msgs"></p-messages>
+    </div>
+
+  </div>
+
+</div>
+
+<app-display-answers [displayAnswers] ="displayAnswersP" [surveyAnswer] = "survey" [tabsData] = "tabsData" (detailedDisplayAgain) ="displayDetailedAgain()"></app-display-answers>

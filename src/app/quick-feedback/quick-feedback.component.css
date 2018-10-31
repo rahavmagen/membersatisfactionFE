@@ -1,0 +1,13 @@
+p-radioButton{
+  margin: 0 30px 0 10px;
+
+}
+
+.form label {
+  display: block;
+  font-weight: 700;
+}
+
+.form input, .form textarea {
+  width: 100%;
+}

@@ -1,0 +1,147 @@
+<ngx-spinner></ngx-spinner>
+
+<p-growl [value]="msgs"> </p-growl>
+<div class="ui-g">
+  <div class="ui-g-4">
+    <!-- <app-logo></app-logo> -->
+  </div>
+
+
+  <!-- <div class="panel panel-default" [ngStyle]="{'background-image': getUrl()}"> -->
+
+
+
+
+
+<p-confirmDialog></p-confirmDialog>
+
+<div class="ui-g-8">
+
+<form class="quickFeedback" [formGroup]="form" (ngSubmit)=saveSurvey(form.value)>
+  <div class="ui-g" *ngIf="displayQuickFeedback">
+    <div class="ui-g-12">
+      <div class="ui-grid-row">
+        <div class="ui-g-12">
+          <h5>
+            Please provide us with feedback with your experience ,your rate and/or leave comments
+            <br> this is to help us provide you with a better service
+          </h5>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-g-2">UMN *</div>
+        <div class="ui-g-3">
+          <input type="text" pInputText name="umn"  formControlName="umn" />
+        </div>
+        <div class="ui-g-7">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['umn'].valid&& form.controls['umn'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="form.controls['umn'].errors['required']">UMN is required</span>
+            <span *ngIf="form.controls['umn'].errors['minlength']">UMN Must be at list 8 characters </span>
+            <span *ngIf="form.controls['umn'].errors['pattern']">UMN Must be numeric</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-g-2">Phone number *</div>
+        <div class="ui-g-3">
+          <input type="text" pInputText name="phoneNumber" placeholder="phone number" formControlName="phoneNumber" required [pattern]="phonePattern"
+            maxlength="10" />
+        </div>
+        <div class="ui-g-7">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['phoneNumber'].valid && form.controls['phoneNumber'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="form.controls['phoneNumber'].errors['required']">phone number is required</span>
+            <span *ngIf="form.controls['phoneNumber'].errors['pattern']">phone number Must be 10 characters and start with zero</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-g-2">First name *</div>
+        <div class="ui-g-3">
+          <input type="text" pInputText name="firstName" placeholder="First name" formControlName="firstName" />
+        </div>
+        <div class="ui-g-7">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['firstName'].valid&& form.controls['firstName'].dirty">
+            <i class="fa fa-close"></i>
+            <span *ngIf="form.controls['firstName'].errors['required']">First name is required</span>
+            <span *ngIf="form.controls['firstName'].errors['minlength']">First name Must be at least 2 characters</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-g-2">Middle name</div>
+        <div class="ui-g-3">
+          <input type="text" pInputText name="middleName" placeholder="Middle name" formControlName="middleName" />
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-g-2">Last name *</div>
+        <div class="ui-g-3">
+          <input type="text" pInputText name="lastName" placeholder="Last name" formControlName="lastName" />
+
+
+          <div class="ui-g-7">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['lastName'].valid && form.controls['lastName'].dirty">
+              <i class="fa fa-close"></i>
+              <span *ngIf="form.controls['lastName'].errors['required']">Last name is required</span>
+              <span *ngIf="form.controls['lastName'].errors['minlength']">Last name Must be at least 2 characters</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-g-4">
+          <h3>Service experience *</h3>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-g-2">
+          <div class="ui-g-12">
+            <p-radioButton name="quickFeedBackGrade" value="1" label="Very poor" formControlName="grade"></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton name="quickFeedBackGrade" value="2" label="Poor" formControlName="grade"></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton name="quickFeedBackGrade" value="3" label="Good" formControlName="grade"></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton name="quickFeedBackGrade" value="4" label="Very good" formControlName="grade"></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton name="quickFeedBackGrade" value="5" label="Excellent" formControlName="grade"></p-radioButton>
+          </div>
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!form.controls['grade'].valid&& form.controls['grade'].dirty">
+            <span *ngIf="form.controls['grade'].errors['required']">Service experience is required</span>
+
+          </div>
+        </div>
+        <div class="ui-g-3">
+          <h3>Comments</h3>
+          <textarea rows="5" cols="30" pInputTextarea autoResize="autoResize" name="comments" formControlName="comments"></textarea>
+        </div>
+      </div>
+      <div class="ui-g-4">
+        <p-button type="submit" label="Save" [disabled]="!form.valid"></p-button>
+      </div>
+
+    </div>
+
+  </div>
+</form>
+</div>
+
+</div>
+
+<p-dialog header="Confirmation" [(visible)]="displayConfirmationWindow" [modal]="true" [responsive]="true" [width]="350"
+  [minWidth]="200" [minY]="70" [baseZIndex]="10000">
+  <span>thank you for you feedback</span>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="displayConfirmationWindow=false" label="OK"></button>
+
+  </p-footer>
+</p-dialog>
+
+<app-detailed-feedback [datailedFeedbackDisplay]="displayDetailedFeedbackInd" [surveyAnswer]="survey"></app-detailed-feedback>

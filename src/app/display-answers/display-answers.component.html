@@ -1,0 +1,29 @@
+<ngx-spinner></ngx-spinner>
+<p-messages [(value)]="msgs"></p-messages>
+<div *ngIf="displayAnswers">
+  <h3>please check your answers - to change click the "back" button to save click the "save" button</h3>
+  <div *ngFor="let tab of tabsData; let TabIndex = index">
+    <!-- <div *ngIf="tab.gradeText || tab.comment  "> -->
+      <p-panel [header]="tab.categoryName" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
+        <div *ngFor="let memberAnswer of  tab.memberAnswers ; let answerIndex = index">
+          <div *ngIf="memberAnswer.possibleAnswer.question.questionText">
+            <p style="text-align: left; width:30%; display: inline-block;"> {{memberAnswer.possibleAnswer.question.questionText}}</p>
+            <p style="text-align: left; width:50%;  display: inline-block;"> {{memberAnswer.possibleAnswer.answerValue}}</p>
+          </div>
+        </div>
+        <div *ngIf="tab.gradeText">
+          <p>grade: {{tab.gradeText }}</p>
+        </div>
+        <div *ngIf="tab.comment">
+          <p>comment: {{tab.comment }}</p>
+        </div>
+      </p-panel>
+    <!-- </div> -->
+  </div>
+
+  <button type="button" pButton icon="pi pi-check" label="Save" (click)="saveFeedback()" ></button>
+  <button type="button" pButton icon="pi pi-check" label="Back" (click)="openDetailedAgain()"></button>
+
+</div>
+
+<app-thankyou [displayThankYou]="displayThankYou"></app-thankyou>

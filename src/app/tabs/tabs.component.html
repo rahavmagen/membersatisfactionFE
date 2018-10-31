@@ -1,0 +1,75 @@
+<!-- <p-tabView    (onChange) = "displayFeedback($event)" > -->
+  <p-tabView  (onChange) = "displayFeedback($event)" >
+  <p-tabPanel [header]="category" *ngFor="let category of categoriesList; let i = index" [selected]="i == 0">
+    <br>
+
+    <br>
+    <ul>
+      <li *ngFor="let question of category.questions; let qIndex = index " >
+        <table>
+          <tr>
+            <td>
+              <input type="text" pInputText [placeholder]="question.questionText">
+            </td>
+            <td>
+              <p-dropdown [options]="question.possibleAnswers" [(ngModel)]="tabsData[catIndex].memberAnswers[qIndex].possibleAnswer.answerValue"
+              placeholder="Please select" (onChange)="buildTabsData(catIndex ,tabsData[catIndex].memberAnswers[qIndex].possibleAnswer.answerValue,qIndex  )"
+                optionLabel="answerValue" [showClear]="true" [ngModelOptions]="{standalone: true}">
+              </p-dropdown>
+            </td>
+          </tr>
+        </table>
+      </li>
+    </ul>
+
+<!--
+    <div class="ui-grid-row">
+      <h3>Service experience for {{category}}</h3>
+    </div>
+
+    <div class="ui-grid-row">
+        <div class="ui-g-6">
+          <div class="ui-g-12">
+            <p-radioButton  value="1" label="Very poor"
+             [(ngModel)]="categoryGrade[i]" ></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton  value="2" label="Poor"
+            [(ngModel)]="categoryGrade[i]" ></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton  value="3" label="Good"
+            [(ngModel)]="categoryGrade[i]" ></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton  value="4" label="Very good"
+            [(ngModel)]="categoryGrade[i]" ></p-radioButton>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton  value="5" label="Ecxelent"
+            [(ngModel)]="categoryGrade[i]" ></p-radioButton>
+          </div>
+        </div>
+
+      </div> -->
+
+  </p-tabPanel>
+</p-tabView>
+
+
+
+
+
+
+<!--
+  <div class="ui-grid-row">
+      <input type="radio" name="gender" value="1" (onClick)="pushOrUpdateFeedback()" [(ngModel)]="categoryGrade">Very poor <br>
+      <input type="radio" name="gender" value="2" (onClick)="pushOrUpdateFeedback()" [(ngModel)]="categoryGrade"> Poor<br>
+      <input type="radio" name="gender" value="3" (onClick)="pushOrUpdateFeedback()" [(ngModel)]="categoryGrade" > Good<br>
+      <input type="radio" name="gender" value="4" (onClick)="pushOrUpdateFeedback()" [(ngModel)]="categoryGrade"> Very good<br>
+      <input type="radio" name="gender" value="5" (onClick)="pushOrUpdateFeedback()" [(ngModel)]="categoryGrade"> Ecxelent<br>
+
+  </div> -->
+
+
+  <!-- (onClick)="pushOrUpdateFeedback() -->
